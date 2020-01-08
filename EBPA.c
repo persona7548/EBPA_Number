@@ -30,32 +30,32 @@ int main() {
 	srand((unsigned)time(NULL));
 
 	//step 0
-	for (i = 0; i <= 225; i++) //input -> hidden °¡ÁßÄ¡ ÃÊ±âÈ­ (-0.5,0.5)
+	for (i = 0; i <= 225; i++) //input -> hidden ê°€ì¤‘ì¹˜ ì´ˆê¸°í™” (-0.5,0.5)
 		for (j = 0; j <= 40; j++)
 			v[i][j] = (rand() % 2) - 0.5;
 
-	for (i = 0; i <= 40; i++) //hidden -> output °¡ÁßÄ¡ ÃÊ±âÈ­(-0.5, 0.5)
+	for (i = 0; i <= 40; i++) //hidden -> output ê°€ì¤‘ì¹˜ ì´ˆê¸°í™”(-0.5, 0.5)
 		for (j = 0; j < 10; j++)
 			w[i][j] = (rand() % 2) - 0.5;
 
 	for (int i = 0; i < 10; i++)
 		output[i] = 0;
 
-	input[0] = 1; hidden[0] = 1.0; //bias ÃÊ±âÈ­
+	input[0] = 1; hidden[0] = 1.0; //bias ì´ˆê¸°í™”
 
-	for (int x = 0; x < 5; x++)//½ÃÇàÈ½¼ö
+	for (int x = 0; x < 5; x++)//ì‹œí–‰íšŸìˆ˜
 		for (int num = 0; num < 10; num++) {
 			fp = fopen(number[num], "r");
-			for (i = 1; i <= 225; i++) //Input layer ÃÊ±âÈ­
+			for (i = 1; i <= 225; i++) //Input layer ì´ˆê¸°í™”
 				fscanf(fp, "%d", &input[i]);
 			fclose(fp);
 
-			for (i = 0; i < 10; i++) //t_k ÃÊ±âÈ­
+			for (i = 0; i < 10; i++) //t_k ì´ˆê¸°í™”
 				t[i] = 0.0;
 			t[num] = 1.0;
 
-			while (output[num] <= 0.97) {//step7 & ÇĞ½À¿¡´ëÇÑ ÇÑ°èÄ¡(ÀûÁßµµ 0.9 ÀÌ»ó½Ã ÆĞ½º)
-				printf("\n%dÈ¸Â÷\n", count++);
+			while (output[num] <= 0.97) {//step7 & í•™ìŠµì—ëŒ€í•œ í•œê³„ì¹˜(ì ì¤‘ë„ 0.9 ì´ìƒì‹œ íŒ¨ìŠ¤)
+				printf("\n%díšŒì°¨\n", count++);
 				//step 1,2
 				for (j = 1; j <= 40; j++) {
 					z_in[j] = v[0][j];
@@ -96,7 +96,7 @@ int main() {
 						v[i][j] += d_v[i][j];
 			}
 		}
-	for (int num = 10; num < 20; num++) { //ÀÇµµÀû ¿À·ù »ğÀÔ ¼ıÀÚ¿¡ ´ëÇÑ ±¸º° È®ÀÎ
+	for (int num = 10; num < 20; num++) { //ì˜ë„ì  ì˜¤ë¥˜ ì‚½ì… ìˆ«ìì— ëŒ€í•œ êµ¬ë³„ í™•ì¸
 		double max = 0;
 		int predic = 0;
 		fp = fopen(number[num], "r");
@@ -114,19 +114,19 @@ int main() {
 			for (j = 1; j <= 40; j++)
 				y_in[k] += (hidden[j] * w[j][k]);
 			output[k] = sigmoid(y_in[k]);
-			if (output[k] > max) { // °¡Àå output°ªÀÌ ³ôÀº ¼ıÀÚ È®ÀÎ
+			if (output[k] > max) { // ê°€ì¥ outputê°’ì´ ë†’ì€ ìˆ«ì í™•ì¸
 				max = output[k];
 				predic = k;
 			}
 		}
 		for (i = 1; i <= 225; i++) {
 			if (input[i] == 1)
-				printf("¡á");
+				printf("â– ");
 			else
-				printf("¡à");
+				printf("â–¡");
 			if (i % 15 == 0) printf("\n");
 		}
-		printf("ÀÎ½ÄÇÑ ¼ıÀÚ : %d", predic);
+		printf("ì¸ì‹í•œ ìˆ«ì : %d", predic);
 		printf("\n\n");
 	}
 
